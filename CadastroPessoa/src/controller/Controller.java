@@ -10,15 +10,13 @@ import model.CadastroUser;
 import view.Cadastro;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import view.UserCreated;
-import view.cpfInvalido;
-import view.cpfInvalidoNum;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 import view.ExibirPessoa;
-import view.cpfExistente;
+
 
 
 /**
@@ -72,14 +70,12 @@ public class Controller {
                 if (cpfP.equals(cpf)) {
                     
                     //abre a janela
-                    cpfExistente cEx = new cpfExistente();
-                    cEx.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "CPF já existente !", "Erro", JOptionPane.ERROR_MESSAGE);
                     //imprime no terminal
                     System.err.println("CPF já existente!");
                     return;
                 }
             }
-            System.err.println("CPF não encontrado no arquivo.");
         } catch (IOException e) {
             System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
@@ -94,8 +90,8 @@ public class Controller {
             
         } catch (IllegalArgumentException e) {
             System.err.println("Exceção: " + e.getMessage());
-            cpfInvalidoNum inN = new cpfInvalidoNum();
-            inN.setVisible(true);
+            JOptionPane.showMessageDialog(null, "CPF inválido. Deve conter exatamente 11 dígitos.", "Erro", JOptionPane.ERROR_MESSAGE);
+
             return;
         }
         
@@ -106,8 +102,8 @@ public class Controller {
             
         } catch (NumberFormatException e) {
             System.err.println("Exceção: " + e.getMessage());
-            cpfInvalido in = new cpfInvalido();
-            in.setVisible(true);
+            JOptionPane.showMessageDialog(null,"CPF invalido, Digite apenas números !","Erro",JOptionPane.ERROR_MESSAGE);
+//            
             return;
         }
         
@@ -121,10 +117,8 @@ public class Controller {
         
         //salva o usuário na array 
         cadastroU.add(new CadastroUser(nome,sobrenome,idade,cpf,sexo));
-        
-        //Informa que o usuario foi criado com sucesso em uma janela separada 
-        UserCreated uC = new UserCreated();
-        uC.setVisible(true);
+
+        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso !", "Sucesso",JOptionPane.INFORMATION_MESSAGE);
         
         //imprime no terminal que o usuario foi criado 
         System.out.println("User Created!");
